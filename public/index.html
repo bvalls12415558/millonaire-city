@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>MILLIONAIRE CITY</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div id="login" class="overlay">
+    <div class="panel login-panel">
+      <div class="eyebrow">WELCOME TO THE CITY</div><h1>MILLIONAIRE <span>CITY</span></h1>
+      <p>Una ciudad. Un equipo. Un millón de dólares.</p>
+      <input id="username" maxlength="18" placeholder="Nombre de jugador" autocomplete="username">
+      <input id="password" type="password" placeholder="Contraseña (mínimo 8 caracteres)" autocomplete="current-password">
+      <div class="actions"><button id="register">CREAR CUENTA</button><button id="loginBtn" class="secondary">ENTRAR</button></div>
+      <small id="loginError">Crea una cuenta para entrar en la ciudad.</small>
+    </div>
+  </div>
+  <div id="game" hidden>
+    <header class="topbar">
+      <div class="brand">MILLIONAIRE <b>CITY</b></div>
+      <div class="team"><span>DINERO DEL EQUIPO</span><strong id="balance">$0</strong><div class="progress"><i id="progress"></i></div><small id="target">0 / 1.000.000 $</small></div>
+      <div class="online"><i></i><span id="playerCount">1</span> CONECTADOS</div>
+    </header>
+    <div id="world"></div>
+    <section class="hud-left panel">
+      <div class="eyebrow">JUGADOR</div><strong id="myName">Invitado</strong>
+      <div class="stat"><span>VIDA</span><b>100%</b></div><div class="health"><i></i></div>
+      <div class="eyebrow gap">ACTIVIDADES</div>
+      <button class="task" data-job="delivery">📦 Repartidor <b>+120 $</b></button>
+      <button class="task" data-job="mechanic">🔧 Mecánico <b>+180 $</b></button>
+      <button class="task" data-job="trucker">🚚 Transportista <b>+250 $</b></button>
+      <div class="hint">WASD mover · SHIFT correr<br>ESPACIO saltar · Ratón cámara</div>
+    </section>
+    <section class="hud-right panel">
+      <div class="eyebrow">CENTRO SOCIAL</div><div id="players"></div>
+      <div class="eyebrow gap">CASINO · TRAGAPERRAS</div>
+      <div class="slots" id="reels"><span>🍒</span><span>🔔</span><span>💎</span></div>
+      <div class="bet-row"><input id="bet" type="number" min="10" max="500" value="25"><button id="spin">GIRAR</button></div>
+      <small>10–500 $ · Premios gestionados por servidor</small>
+      <div class="eyebrow gap">CHAT GLOBAL</div><div id="chat"></div>
+      <form id="chatForm"><input id="chatInput" maxlength="240" placeholder="Escribe un mensaje…"><button>➤</button></form>
+    </section>
+    <div class="crosshair">+</div><div id="toast"></div>
+    <div id="victory" class="overlay" hidden><div class="panel"><div class="eyebrow">MISIÓN CUMPLIDA</div><h1>¡SOMOS <span>MILLONARIOS!</span></h1><p>El equipo ha alcanzado el millón de dólares.</p><button onclick="location.reload()">VOLVER A JUGAR</button></div></div>
+    <footer>WASD MOVER · SHIFT CORRER · CLICK CAPTURAR RATÓN · ESC LIBERAR RATÓN</footer>
+  </div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="module" src="/game.js"></script>
+</body></html>

@@ -1,0 +1,29 @@
+CREATE TABLE IF NOT EXISTS players (
+  id TEXT PRIMARY KEY,
+  username TEXT NOT NULL UNIQUE,
+  password_hash TEXT NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  last_seen TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+CREATE TABLE IF NOT EXISTS game_state (
+  id INTEGER PRIMARY KEY CHECK (id = 1),
+  team_balance BIGINT NOT NULL DEFAULT 0,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+INSERT INTO game_state(id, team_balance) VALUES (1, 0) ON CONFLICT (id) DO NOTHING;
+CREATE TABLE IF NOT EXISTS transactions (
+  id BIGSERIAL PRIMARY KEY,
+  player_id TEXT REFERENCES players(id),
+  username TEXT NOT NULL,
+  amount BIGINT NOT NULL,
+  reason TEXT NOT NULL,
+  team_balance_after BIGINT NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+CREATE TABLE IF NOT EXISTS player_progress (
+  player_id TEXT PRIMARY KEY REFERENCES players(id) ON DELETE CASCADE,
+  total_contributed BIGINT NOT NULL DEFAULT 0,
+  total_earned BIGINT NOT NULL DEFAULT 0,
+  level INTEGER NOT NULL DEFAULT 1,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
